@@ -488,7 +488,7 @@ class WatchDog {
 };
 
 static constexpr size_t kMinDexFilesForSwap = 2;
-static constexpr size_t kMinDexFileCumulativeSizeForSwap = 20 * MB;
+static constexpr size_t kMinDexFileCumulativeSizeForSwap = 24 * MB;
 
 static bool UseSwap(bool is_image, std::vector<const DexFile*>& dex_files) {
   if (is_image) {
