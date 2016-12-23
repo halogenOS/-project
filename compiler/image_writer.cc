@@ -1858,8 +1858,11 @@ T* ImageWriter::NativeLocationInImage(T* obj) {
     return obj;
   } else {
     auto it = native_object_relocations_.find(obj);
-    CHECK(it != native_object_relocations_.end()) << obj << " spaces "
-        << Runtime::Current()->GetHeap()->DumpSpaces();
+    if(it == native_object_relocations_.end()) {
+        LOG(WARNING) << obj << " spaces "
+          << Runtime::Current()->GetHeap()->DumpSpaces();
+        return obj;
+    }
     const NativeObjectRelocation& relocation = it->second;
     ImageInfo& image_info = GetImageInfo(relocation.oat_index);
     return reinterpret_cast<T*>(image_info.image_begin_ + relocation.offset);
