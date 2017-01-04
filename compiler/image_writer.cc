@@ -437,12 +437,9 @@ void ImageWriter::PrepareDexCacheArraySlots() {
       continue;
     }
     const DexFile* dex_file = dex_cache->GetDexFile();
-    if(dex_file_oat_index_map_.find(dex_file) == dex_file_oat_index_map_.end()) {
-      LOG(WARNING)
+    CHECK(dex_file_oat_index_map_.find(dex_file) != dex_file_oat_index_map_.end())
         << "Dex cache should have been pruned " << dex_file->GetLocation()
         << "; possibly in class path";
-      continue;
-    }
     DexCacheArraysLayout layout(target_ptr_size_, dex_file);
     DCHECK(layout.Valid());
     size_t oat_index = GetOatIndexForDexCache(dex_cache);
